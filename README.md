@@ -6,6 +6,11 @@ Banco de dados não relacional
 Marcio Jasinski
 47 99653-4899
 
+## Exercício
+
+###REDIS
+* https://github.com/rafaelmatiello/posdc-banco-dados-nao-relacional/tree/master/workspace/redinsgo
+
 ## material
 http://bit.ly/furb-nosql-202004
 

@@ -9,7 +9,20 @@ Marcio Jasinski
 ## Exercício
 
 ### REDIS
+
+#### fontes
+
 * https://github.com/rafaelmatiello/posdc-banco-dados-nao-relacional/tree/master/workspace/redinsgo
+
+#### Como utilizar
+* Executa o arquivo em java	/redinsgo/src/main/java/com/github/rafaelmatiello/redinsgo/App.java
+
+#### print da execução
+
+* https://github.com/rafaelmatiello/posdc-banco-dados-nao-relacional/tree/master/workspace/redinsgo/SaidaDoSistema.png
+
+
+#### console
 
 Exemplo de saida | 
 ------------ |

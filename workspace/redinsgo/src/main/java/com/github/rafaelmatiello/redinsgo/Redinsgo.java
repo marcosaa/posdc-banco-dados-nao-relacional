@@ -81,7 +81,7 @@ public class Redinsgo {
 		String bolaSorteada = connect.srandmember(CHAVE_BOLAS);
 		connect.srem(CHAVE_BOLAS, bolaSorteada);
 		connect.sadd(CHAVE_BOLAS_SORTEADAS, bolaSorteada);
-		
+
 		for (int i = 1; i <= QUANTIDADE_JOGADORES; i++) {
 			Boolean encontrou = connect.sismember(CHAVE_CARTELA + i, bolaSorteada);
 			if (encontrou) {
@@ -104,10 +104,35 @@ public class Redinsgo {
 	}
 
 	public void mostrarGanhadores() {
+
+		Jedis connect = RedisConnection.connect();
+
 		System.out.println("Ganhadores:");
 		for (String ganhador : listaGanhadores) {
 			System.out.println(ganhador);
+			imprimirCartela(connect, ganhador);
 		}
+		imprimirBolarSorteadas(connect);
+	}
+
+	private void imprimirBolarSorteadas(Jedis connect) {
+		Set<String> smembers = connect.smembers(CHAVE_BOLAS_SORTEADAS);
+		StringBuilder sb = new StringBuilder();
+		for (String bola : smembers) {
+			sb.append(bola).append(" ");
+		}
+
+		System.out.println("Bolar sorteadas (" + smembers.size() + "): " + sb.toString());
+	}
+
+	private void imprimirCartela(Jedis connect, String ganhador) {
+		String codigoGanhador = ganhador.substring(ganhador.indexOf(":") + 1);
+		Set<String> numeroCartela = connect.smembers(CHAVE_CARTELA + codigoGanhador);
+		StringBuilder sb = new StringBuilder();
+		for (String numero : numeroCartela) {
+			sb.append(numero).append(" ");
+		}
+		System.out.println("Cartela: " + sb.toString());
 	}
 
 }

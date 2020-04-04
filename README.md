@@ -4,6 +4,7 @@ Banco de dados não relacional
 ## data
 04/04/2020
 Marcio Jasinski
+47 99653-4899
 
 ## material
 http://bit.ly/furb-nosql-202004
@@ -189,6 +190,116 @@ Documento:
 * persistência poliglota
  - banco espeficio para cada problema.
 
+
+## Key value
+
+	* baseado em conceito HASH.
+		* sem hash o custo é O(n), n é o tamanho da estrutura.
+	* derivar um número pela posição
+	* hash mod 11, da a posição aonde vai inserir, o indice.
+	* dicionários de tabela hash, distribuído entre os nós, este pode se memória ou persististido.
+
+### REDIS
+	* baseado em HASH
+	* performance, acessar o dado pela chave? sim, top
+	* utilização
+		- cache de dados
+		- publish/Subscriber e filas,
+		- contadores.
+	* perdeu a chave,
+		- busca sequencial
+	* comandos
+		- set key value
+		- get key
+			- não existe nil
+		- del key...
+		- incr key
+			- incrementa de forma atomica.
+			- erro se não for um número
+			- exemplo: limite de chamadas por tempo, 10 chamada por segundo
+		- incrby key 10
+			-  somenta mais 10, dinamicamente.
+		- Listas
+			- rpush, lpush, llen, lrange
+			- rpush
+				- rpush lista "hello", final
+				- lpush lista "helow", inicio
+			- lrange lista 0 -1, lista do inicio ao final da lista
+			- rrange lista 0 -1, lista ao contrário
+			- lne
+	
+
+### MONGODB
+	* orientado a documento.
+	* relaciomento exitem, não utilizar
+	* dados AGREGADOS
+	* ausencia de schema
+	* simples remover e adicionar campo
+	* validação fica para aplicação
+	* escala horizontalmente
+	* facilmente espelhar documentos
+	* balanciamento de carga, e distribuição de dados
+	* positivo
+		* escala
+	* negativo
+		* geranciar os nós
+	
+	* perde
+		* join
+		* dados tabulados
+		* operações em colunas
+		* manipulação de dados
+		* formalismo, busca de colunas e as colunas não existem mais.
+			* erra o nome da coluna na gravação, começa a criar documentos com colunas erradas.
+		* atributo com nome errado, é mais lento, porque ele procura o dado em cada registro.
+	* Documento é sempre um JSON
+	* chave é sempre string, . e $ não deve ser utilizado
+	* armazendo é bson
+	* case sensitive
+	* não pode duplicar chaves, no mesmo json
+	* chaves e valor, são ordenandos
+	* coleções, são as tabelas
+		* cada documento pode ter objetos diferentes
+	* porque separar em coleções
+		* coleção de pessoas, e colocar as pessoas juntos.
+			* mais organizados
+		* Se não tiver em uma validação de leitura tem que saber qual o tipo de registro
+		* performance, mais interessante agrupar os dados próximos, mais rápido de consultar
+		* muitos documentos e campos, muito indices e buscar, dificulta performance e 
+	* coleção	
+		* nomes,
+		*proibidos
+			* system.user
+			* system.namesspace
+		* pode usar . para organização, mas não muda nada para o banco, é pessoal, ex "blog.sistes"
+		* subcoleções
+		* arquivos grande 16 mb, 
+	* database
+		* diversos databases
+		* não ultrapassar 64 bits
+	* database
+		* arquivo com o nome
+	* command
+		* interpretador javascript
+		* 3 enter sai do modelo.
+	* new Date()	
+		* utilizar para data
+		ISODate("")
+	* mongorx.js
+		* dentro do home, 
+		* script de inicialição
+	* operações atomicos
+		*$unset
+		* $set
+		* $inc
+	* update
+		* mata o documento anterior
+	
+	*chocolatey, docker, 
+	* mod divisão
+	* perl para like
+	* evitar utilizar o where, mais lenta.
+	
 	
 	
 

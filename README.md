@@ -8,7 +8,7 @@ Marcio Jasinski
 
 ## Exercício
 
-###REDIS
+### REDIS
 * https://github.com/rafaelmatiello/posdc-banco-dados-nao-relacional/tree/master/workspace/redinsgo
 
 ## material

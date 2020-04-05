@@ -178,18 +178,70 @@ null
 10. Projete apenas o nome e sobrenome das pessoas com tipo de sangue de fator RH negativo
 
 ``` shell
+> db.italians.find({"bloodType" : /-/i}, {"firstname": 1,"surname": 1, "_id": 0})
+{ "firstname" : "Sara", "surname" : "Mancini" }
+{ "firstname" : "Maurizio", "surname" : "Messina" }
+{ "firstname" : "Emanuele", "surname" : "Rinaldi" }
+{ "firstname" : "Patrizia", "surname" : "D’Amico" }
+{ "firstname" : "Mario", "surname" : "Lombardo" }
+{ "firstname" : "Daniele", "surname" : "Marini" }
+{ "firstname" : "Tiziana", "surname" : "Ferri" }
+{ "firstname" : "Angela", "surname" : "Ferrari" }
+{ "firstname" : "Davide", "surname" : "Caputo" }
+{ "firstname" : "Antonio", "surname" : "Marchetti" }
+{ "firstname" : "Tiziana", "surname" : "Ferretti" }
+{ "firstname" : "Dario", "surname" : "Coppola" }
+{ "firstname" : "Filipo", "surname" : "Ferraro" }
+{ "firstname" : "Sabrina", "surname" : "Greco" }
+{ "firstname" : "Daniela", "surname" : "Serra" }
+{ "firstname" : "Claudio", "surname" : "Colombo" }
+{ "firstname" : "Giorgio", "surname" : "Rinaldi" }
+{ "firstname" : "Teresa", "surname" : "Leone" }
+{ "firstname" : "Claudio", "surname" : "Marino" }
+{ "firstname" : "Gianni", "surname" : "Riva" }
+Type "it" for more
 ```
 
 
-11. Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. Não mostre o identificado do mongo (ObjectId)
+11. Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. 
+Não mostre o identificado do mongo (ObjectId)
 
 ``` shell
+> db.italians.find({"$or" :[{"cat": { "$exists": true}},{"dog": { "$exists": true}}]}, {"cat.name":1, "dog.name":1, "_id":0 })
+{ "cat" : { "name" : "Daniela" }, "dog" : { "name" : "Alberto" } }
+{ "dog" : { "name" : "Cristina" } }
+{ "cat" : { "name" : "Paola" } }
+{ "cat" : { "name" : "Vincenzo" } }
+{ "cat" : { "name" : "Fabio" }, "dog" : { "name" : "Antonio" } }
+{ "cat" : { "name" : "Rita" } }
+{ "cat" : { "name" : "Antonella" } }
+{ "cat" : { "name" : "Marta" }, "dog" : { "name" : "Gianni" } }
+{ "cat" : { "name" : "Mauro" }, "dog" : { "name" : "Dario" } }
+{ "cat" : { "name" : "Barbara" } }
+{ "dog" : { "name" : "Gianni" } }
+{ "dog" : { "name" : "Laura" } }
+{ "cat" : { "name" : "Giusy" } }
+{ "cat" : { "name" : "Vincenzo" } }
+{ "dog" : { "name" : "Fabio" } }
+{ "cat" : { "name" : "Elena" } }
+{ "cat" : { "name" : "Stefano" } }
+{ "cat" : { "name" : "Antonella" }, "dog" : { "name" : "Simone" } }
+{ "cat" : { "name" : "Matteo" } }
+{ "dog" : { "name" : "Lorenzo" } }
+Type "it" for more
 ```
 
 
 12. Quais são as 5 pessoas mais velhas com sobrenome Rossi?
 
 ``` shell
+> db.italians.find({ "surname": "Rossi"}).sort({ "age": -1}).limit(5)
+{ "_id" : ObjectId("5e8a4ca9c9d7b9bfa2536eef"), "firstname" : "Stefano", "surname" : "Rossi", "username" : "user3580", "age" : 79, "email" : "Stefano.Rossi@uol.com.br", "bloodType" : "B+", "id_num" : "801060025566", "registerDate" : ISODate("2018-10-21T06:38:06.120Z"), "ticketNumber" : 5721, "jobs" : [ "Ciências Sociais e Humanas", "Gestão de Recursos Humanos" ], "favFruits" : [ "Tangerina", "Mamão", "Uva" ], "movies" : [ { "title" : "O Resgate do Soldado Ryan (1998)", "rating" : 3.93 }, { "title" : "Seven: Os Sete Crimes Capitais (1995)", "rating" : 2.35 }, { "title" : "O Resgate do Soldado Ryan (1998)", "rating" : 2.22 } ], "cat" : { "name" : "Daniele", "age" : 17 }, "dog" : { "name" : "Sonia", "age" : 0 } }
+{ "_id" : ObjectId("5e8a4cb3c9d7b9bfa2537ef3"), "firstname" : "Valeira", "surname" : "Rossi", "username" : "user7680", "age" : 79, "email" : "Valeira.Rossi@uol.com.br", "bloodType" : "AB-", "id_num" : "084563063048", "registerDate" : ISODate("2018-08-10T18:55:36.610Z"), "ticketNumber" : 5760, "jobs" : [ "Psicologia" ], "favFruits" : [ "Banana", "Goiaba", "Pêssego" ], "movies" : [ { "title" : "Matrix (1999)", "rating" : 3.6 }, { "title" : "Star Wars, Episódio V: O Império Contra-Ataca (1980)", "rating" : 1.58 } ] }
+{ "_id" : ObjectId("5e8a4cd3bb206c9231199037"), "firstname" : "Elisabetta", "surname" : "Rossi", "username" : "user4728", "age" : 79, "email" : "Elisabetta.Rossi@hotmail.com", "bloodType" : "A+", "id_num" : "070152032267", "registerDate" : ISODate("2014-08-21T08:49:41.378Z"), "ticketNumber" : 3626, "jobs" : [ "Construção Civil", "Farmácia" ], "favFruits" : [ "Tangerina", "Tangerina" ], "movies" : [ { "title" : "A Viagem de Chihiro (2001)", "rating" : 0.4 }, { "title" : "Gladiador (2000)", "rating" : 1.74 }, { "title" : "O Senhor dos Anéis: As Duas Torres (2002)", "rating" : 0.79 }, { "title" : "O Poderoso Chefão II (1974)", "rating" : 4.35 } ], "dog" : { "name" : "Alessandra", "age" : 7 } }
+{ "_id" : ObjectId("5e8a4a00e9112505eb8cc705"), "firstname" : "Monica", "surname" : "Rossi", "username" : "user1782", "age" : 78, "email" : "Monica.Rossi@outlook.com", "bloodType" : "O-", "id_num" : "863318766101", "registerDate" : ISODate("2008-09-21T00:40:00.724Z"), "ticketNumber" : 7254, "jobs" : [ "Eventos" ], "favFruits" : [ "Uva", "Melancia" ], "movies" : [ { "title" : "Star Wars, Episódio V: O Império Contra-Ataca (1980)", "rating" : 4.69 } ] }
+{ "_id" : ObjectId("5e8a4ca2c9d7b9bfa2536409"), "firstname" : "Maurizio", "surname" : "Rossi", "username" : "user790", "age" : 78, "email" : "Maurizio.Rossi@outlook.com", "bloodType" : "B-", "id_num" : "486404162370", "registerDate" : ISODate("2008-09-05T10:14:16.745Z"), "ticketNumber" : 9185, "jobs" : [ "Ciências Naturais e Exatas" ], "favFruits" : [ "Maçã" ], "movies" : [ { "title" : "Clube da Luta (1999)", "rating" : 3.05 }, { "title" : "A Felicidade Não se Compra (1946)", "rating" : 1.96 } ], "cat" : { "name" : "Domenico", "age" : 11 }, "dog" : { "name" : "Roberta", "age" : 8 } }
+>
 ```
 
 

@@ -1,5 +1,7 @@
 # exercício final de redis
 
+Executar o exercício em redis para o atividade.pdf
+
 ## fontes
 
 * workspace/redinsgo

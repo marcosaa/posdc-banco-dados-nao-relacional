@@ -16,7 +16,7 @@ public class Redinsgo {
 	private static final String CHAVE_CARTELA = "cartela:";
 	private static final String CHAVE_USER = "user:";
 	private static final String CHAVE_USER_NAME = "name";
-	private static final String CHAVE_USER_CARTELA = "bcartela:";
+	private static final String CHAVE_USER_CARTELA = "bcartela";
 	private static final String CHAVE_USER_SCORE = "bscore";
 	private static final short QUANTIDADE_JOGADORES = 50;
 	private static final String CHAVE_SET_SCORE = "bscores:";
@@ -118,19 +118,26 @@ public class Redinsgo {
 	private void imprimirBolarSorteadas(Jedis connect) {
 		Set<String> smembers = connect.smembers(CHAVE_BOLAS_SORTEADAS);
 		StringBuilder sb = new StringBuilder();
-		for (String bola : smembers) {
-			sb.append(bola).append(" ");
+
+		String[] bolas = smembers.toArray(new String[0]);
+		for (int i = 0; i < bolas.length; i++) {
+			sb.append(bolas[i]).append(" ");
+			if (i % 10 == 0) {
+				sb.append("\n");
+			}
 		}
 
 		System.out.println("Bolar sorteadas (" + smembers.size() + "): " + sb.toString());
 	}
 
 	private void imprimirCartela(Jedis connect, String ganhador) {
-		String codigoGanhador = ganhador.substring(ganhador.indexOf(":") + 1);
-		Set<String> numeroCartela = connect.smembers(CHAVE_CARTELA + codigoGanhador);
+		String chaveCartela = connect.hget(ganhador, CHAVE_USER_CARTELA);
+		Set<String> numeroCartela = connect.smembers(chaveCartela);
 		StringBuilder sb = new StringBuilder();
-		for (String numero : numeroCartela) {
-			sb.append(numero).append(" ");
+
+		String[] numerosCartela = numeroCartela.toArray(new String[0]);
+		for (int i = 0; i < numerosCartela.length; i++) {
+			sb.append(numerosCartela[i]).append(" ");
 		}
 		System.out.println("Cartela: " + sb.toString());
 	}

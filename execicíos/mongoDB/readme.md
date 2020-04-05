@@ -3,7 +3,7 @@
 Insira os seguintes registros no MongoDB e em seguida responda as questões
 abaixo:
 
-``` mombodb
+``` shell
 use petshop
 db.pets.insert({name: "Mike", species: "Hamster"})
 db.pets.insert({name: "Dolly", species: "Peixe"})
@@ -12,6 +12,7 @@ db.pets.insert({name: "Mike", species: "Cachorro"})
 db.pets.insert({name: "Sally", species: "Cachorro"})
 db.pets.insert({name: "Chuck", species: "Gato"})
 ```
+
 1 - Adicione outro Peixe e um Hamster com nome Frodo
 
 ``` shell
@@ -22,12 +23,14 @@ WriteResult({ "nInserted" : 1 })
 ``` 
 
 2 - Faça uma contagem dos pets na coleção
+
 ``` shell
 > db.pets.find({}).count()
 8
 ```
 
 3 - Retorne apenas um elemento o método prático possível
+
 ``` shell
 > db.pets.findOne();
 {
@@ -46,6 +49,7 @@ id: 5e8a43e1e033d13ae18b248d
 ```
 
 5 - Faça uma busca pelo ID e traga o Hamster Mike
+
 ``` shell
 > db.pets.find({"name": "Mike", "species": "Hamster"});
 { "_id" : ObjectId("5e8a43e1e033d13ae18b248b"), "name" : "Mike", "species" : "Hamster" }
@@ -54,6 +58,7 @@ id: 5e8a43e1e033d13ae18b248d
 ```
 
 6 - Use o find para trazer todos os Hamsters
+
 ``` shell
 > db.pets.find({"species": "Hamster"});
 { "_id" : ObjectId("5e8a43e1e033d13ae18b248b"), "name" : "Mike", "species" : "Hamster" }
@@ -61,6 +66,7 @@ id: 5e8a43e1e033d13ae18b248d
 ```
 
 7 - Use o find para listar todos os pets com nome Mike
+
 ``` shell
 > db.pets.find({"name": "Mike"});
 { "_id" : ObjectId("5e8a43e1e033d13ae18b248b"), "name" : "Mike", "species" : "Hamster" }
@@ -68,6 +74,7 @@ id: 5e8a43e1e033d13ae18b248d
 ```
 
 8 - Liste apenas o documento que é um Cachorro chamado Mike
+
 ``` shell
 > db.pets.findOne({"name": "Mike", "species": "Cachorro"});
 {

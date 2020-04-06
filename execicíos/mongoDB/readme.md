@@ -412,3 +412,63 @@ Type "it" for more
 Type "it" for more
 ```
 
+
+## Exercício 3 - Stockbrokers
+
+Importe o arquivo stocks.json do repositório Downloads NoSQL FURB. Esses dados
+são dados reais da bolsa americana de 2015. A importação do arquivo JSON é um
+pouco diferente da execução de um script:
+
+``` shell
+mongoimport --db stocks --collection stocks --file stocks.json
+```
+
+Analise um pouco a estrutura dos dados novamente e em seguida, responda as
+seguintes perguntas:
+1. Liste as ações com profit acima de 0.5 (limite a 10 o resultado)
+
+``` shell
+```
+
+2. Liste as ações com perdas (limite a 10 novamente)
+
+``` shell
+```
+
+3. Liste as 10 ações mais rentáveis
+
+``` shell
+```
+
+4. Qual foi o setor mais rentável?
+
+``` shell
+```
+
+5. Ordene as ações pelo profit e usando um cursor, liste as ações.
+
+``` shell
+```
+
+6. Renomeie o campo “Profit Margin” para apenas “profit”.
+
+``` shell
+```
+
+7. Agora liste apenas a empresa e seu respectivo resultado
+
+``` shell
+```
+
+8. Analise as ações. É uma bola de cristal na sua mão... Quais as três ações
+você investiria?
+
+``` shell
+```
+
+9. Liste as ações agrupadas por setor
+
+
+``` shell
+```
+

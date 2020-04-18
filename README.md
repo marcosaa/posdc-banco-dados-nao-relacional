@@ -1,26 +1,25 @@
 # posdc-banco-dados-nao-relacional
-Banco de dados não relacional
+Rascunho de Banco de dados não relacional
 
 ## data
-04/04/2020
-Marcio Jasinski
-47 99653-4899
+
+* 04/04/2020
+* Marcio Jasinski
+* 47 99653-4899
 
 
 ## Exercício
 
-Ver pasta Exercícios
+Ver pasta [Execicíos](execicíos)
 
-## material
+## Material
 * http://bit.ly/furb-nosql-202004
 * https://go.microsoft.com/fwlink/?linkid=2062135
 * https://www.dropbox.com/sh/45stbqgbj2nzuy5/AADmx9ytxMNIWk_9UwqyqlDHa?dl=0
 
 ## open source
 ## Teorema cap
- - 
-
-## NoSQL, 
+## NoSQL
 
 ### caracteristica
 

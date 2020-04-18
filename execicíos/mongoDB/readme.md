@@ -6,7 +6,7 @@
 Insira os seguintes registros no MongoDB e em seguida responda as questões
 abaixo:
 
-``` shell
+```shell script
 use petshop
 db.pets.insert({name: "Mike", species: "Hamster"})
 db.pets.insert({name: "Dolly", species: "Peixe"})
@@ -18,7 +18,7 @@ db.pets.insert({name: "Chuck", species: "Gato"})
 
 1 - Adicione outro Peixe e um Hamster com nome Frodo
 
-``` shell
+```shell script
 > db.pets.insert({name: "Nemo", species: "Peixe"})
 WriteResult({ "nInserted" : 1 })
 > db.pets.insert({name: "Frodo", species: "Hamster"})
@@ -27,14 +27,14 @@ WriteResult({ "nInserted" : 1 })
 
 2 - Faça uma contagem dos pets na coleção
 
-``` shell
+```shell script
 > db.pets.find({}).count()
 8
 ```
 
 3 - Retorne apenas um elemento o método prático possível
 
-``` shell
+```shell script
 > db.pets.findOne();
 {
         "_id" : ObjectId("5e8a40a483bd5b7430df3d4e"),
@@ -46,14 +46,14 @@ WriteResult({ "nInserted" : 1 })
 4 - Identifique o ID para o Gato Kilha.
 id: 5e8a43e1e033d13ae18b248d
 
-``` shell
+```shell script
 > db.pets.find({"name": "Kilha", "species": "Gato"});
 { "_id" : ObjectId("5e8a43e1e033d13ae18b248d"), "name" : "Kilha", "species" : "Gato" }
 ```
 
 5 - Faça uma busca pelo ID e traga o Hamster Mike
 
-``` shell
+```shell script
 > db.pets.find({"name": "Mike", "species": "Hamster"});
 { "_id" : ObjectId("5e8a43e1e033d13ae18b248b"), "name" : "Mike", "species" : "Hamster" }
 > db.pets.find({"_id": ObjectId("5e8a43e1e033d13ae18b248b")});
@@ -62,7 +62,7 @@ id: 5e8a43e1e033d13ae18b248d
 
 6 - Use o find para trazer todos os Hamsters
 
-``` shell
+```shell script
 > db.pets.find({"species": "Hamster"});
 { "_id" : ObjectId("5e8a43e1e033d13ae18b248b"), "name" : "Mike", "species" : "Hamster" }
 { "_id" : ObjectId("5e8a43efe033d13ae18b2492"), "name" : "Frodo", "species" : "Hamster" }
@@ -70,7 +70,7 @@ id: 5e8a43e1e033d13ae18b248d
 
 7 - Use o find para listar todos os pets com nome Mike
 
-``` shell
+```shell script
 > db.pets.find({"name": "Mike"});
 { "_id" : ObjectId("5e8a43e1e033d13ae18b248b"), "name" : "Mike", "species" : "Hamster" }
 { "_id" : ObjectId("5e8a43e1e033d13ae18b248e"), "name" : "Mike", "species" : "Cachorro" }
@@ -78,7 +78,7 @@ id: 5e8a43e1e033d13ae18b248d
 
 8 - Liste apenas o documento que é um Cachorro chamado Mike
 
-``` shell
+```shell script
 > db.pets.findOne({"name": "Mike", "species": "Cachorro"});
 {
         "_id" : ObjectId("5e8a43e1e033d13ae18b248e"),
@@ -99,7 +99,7 @@ Analise um pouco a estrutura dos dados e em seguida responda:
 1. Liste/Conte todas as pessoas que tem exatamente 99 anos. Você pode
 usar um count para indicar a quantidade.
 
-``` shell
+```shell script
 > db.italians.find({"age":99})
 > db.italians.find({"age":99}).count()
 0
@@ -108,7 +108,7 @@ usar um count para indicar a quantidade.
 2. Identifique quantas pessoas são elegíveis atendimento prioritário
 (pessoas com mais de 65 anos)
 
-``` shell
+```shell script
 > db.italians.find({"age" : {"$gte" : 65}}).count()
 5214
 ```
@@ -116,7 +116,7 @@ usar um count para indicar a quantidade.
 
 3. Identifique todos os jovens (pessoas entre 12 a 18 anos).
 
-``` shell
+```shell script
 > db.italians.find({"age" : {"$gte" : 12, "$lte" : 18}}).count()
 2502
 ```
@@ -125,7 +125,7 @@ usar um count para indicar a quantidade.
 4. Identifique quantas pessoas tem gatos, quantas tem cachorro e quantas
 não tem nenhum dos dois
 
-``` shell
+```shell script
 > db.italians.find({"cat" : { "$exists" : true} }).count()
 16994
 > db.italians.find({"dog" : { "$exists" : true} }).count()
@@ -137,7 +137,7 @@ não tem nenhum dos dois
 
 5. Liste/Conte todas as pessoas acima de 60 anos que tenham gato
 
-``` shell
+```shell script
 > db.italians.find({"age" : { "$gt" : 60}, "cat" : { "$exists" : true} }).count()
 3938
 ```
@@ -145,7 +145,7 @@ não tem nenhum dos dois
 
 6. Liste/Conte todos os jovens com cachorro
 
-``` shell
+```shell script
 > db.italians.find({"age" : { "$gte" : 14, "$lte": 29 }, "dog" : { "$exists" : true} }).count()
 2259
 ```
@@ -153,7 +153,7 @@ não tem nenhum dos dois
 
 7. Utilizando o $where, liste todas as pessoas que tem gato e cachorro
 
-``` shell
+```shell script
 > db.italians.find({ "$where": "this.dog != null && this.cat != null"}).count()
 6906
 ```
@@ -161,7 +161,7 @@ não tem nenhum dos dois
 
 8. Liste todas as pessoas mais novas que seus respectivos gatos.
 
-``` shell
+```shell script
 > db.italians.find({ "$and" : [ {"cat": {$exists: true}}, {"$where" : "this.age < this.cat.age" } ]}).count()
 1887
 ```
@@ -169,7 +169,7 @@ não tem nenhum dos dois
 
 9. Liste as pessoas que tem o mesmo nome que seu bichano (gatou ou cachorro)
 
-``` shell
+```shell script
 > db.italians.findOne( { "$or" :[ { "$and" : [{"cat": { "$exists": true}}, {"$where" : "this.name == this.cat.name" }]},  { "$and" : [{"dog": { "$exists": true}}, {"$where" : "this.name == this.dog.name" }]} ]})
 null
 ```
@@ -177,7 +177,7 @@ null
 
 10. Projete apenas o nome e sobrenome das pessoas com tipo de sangue de fator RH negativo
 
-``` shell
+```shell script
 > db.italians.find({"bloodType" : /-/i}, {"firstname": 1,"surname": 1, "_id": 0})
 { "firstname" : "Sara", "surname" : "Mancini" }
 { "firstname" : "Maurizio", "surname" : "Messina" }
@@ -206,7 +206,7 @@ Type "it" for more
 11. Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. 
 Não mostre o identificado do mongo (ObjectId)
 
-``` shell
+```shell script
 > db.italians.find({"$or" :[{"cat": { "$exists": true}},{"dog": { "$exists": true}}]}, {"cat.name":1, "dog.name":1, "_id":0 })
 { "cat" : { "name" : "Daniela" }, "dog" : { "name" : "Alberto" } }
 { "dog" : { "name" : "Cristina" } }
@@ -234,7 +234,7 @@ Type "it" for more
 
 12. Quais são as 5 pessoas mais velhas com sobrenome Rossi?
 
-``` shell
+```shell script
 > db.italians.find({ "surname": "Rossi"}).sort({ "age": -1}).limit(5)
 { "_id" : ObjectId("5e8a4ca9c9d7b9bfa2536eef"), "firstname" : "Stefano", "surname" : "Rossi", "username" : "user3580", "age" : 79, "email" : "Stefano.Rossi@uol.com.br", "bloodType" : "B+", "id_num" : "801060025566", "registerDate" : ISODate("2018-10-21T06:38:06.120Z"), "ticketNumber" : 5721, "jobs" : [ "Ciências Sociais e Humanas", "Gestão de Recursos Humanos" ], "favFruits" : [ "Tangerina", "Mamão", "Uva" ], "movies" : [ { "title" : "O Resgate do Soldado Ryan (1998)", "rating" : 3.93 }, { "title" : "Seven: Os Sete Crimes Capitais (1995)", "rating" : 2.35 }, { "title" : "O Resgate do Soldado Ryan (1998)", "rating" : 2.22 } ], "cat" : { "name" : "Daniele", "age" : 17 }, "dog" : { "name" : "Sonia", "age" : 0 } }
 { "_id" : ObjectId("5e8a4cb3c9d7b9bfa2537ef3"), "firstname" : "Valeira", "surname" : "Rossi", "username" : "user7680", "age" : 79, "email" : "Valeira.Rossi@uol.com.br", "bloodType" : "AB-", "id_num" : "084563063048", "registerDate" : ISODate("2018-08-10T18:55:36.610Z"), "ticketNumber" : 5760, "jobs" : [ "Psicologia" ], "favFruits" : [ "Banana", "Goiaba", "Pêssego" ], "movies" : [ { "title" : "Matrix (1999)", "rating" : 3.6 }, { "title" : "Star Wars, Episódio V: O Império Contra-Ataca (1980)", "rating" : 1.58 } ] }
@@ -247,7 +247,7 @@ Type "it" for more
 
 13. Crie um italiano que tenha um leão como animal de estimação. Associe um nome e idade ao bichano
 
-``` shell
+```shell script
 > db.italians.insert({ "firstname" : "Josepe", "surname" : "Matiello", "username" : "Josepe0007", "age" : 50, "email" : "josepe.matiello@hotmail.com", "bloodType" : "A-", "id_num" : "123475327074", "registerDate" : ISODate("2011-02-04T05:04:49.828Z"), "ticketNumber" : 6118, "jobs" : [ "Estudos de Gênero e Diversidade" ], "favFruits" : [ "Laranja", "Uva" ], "movies" : [ { "title" : "Interestelar (2014)", "rating" : 2.02 } ], "leao" : { "name" : "Lion", "age": 7} })
 WriteResult({ "nInserted" : 1 })
 ```
@@ -255,7 +255,7 @@ WriteResult({ "nInserted" : 1 })
 
 14. Infelizmente o Leão comeu o italiano. Remova essa pessoa usando o Id.
 
-``` shell
+```shell script
 > db.italians.insert({ "firstname" : "Josepe", "surname" : "Matiello", "username" : "Josepe0007", "age" : 50, "email" : "josepe.matiello@hotmail.com", "bloodType" : "A-", "id_num" : "123475327074", "registerDate" : ISODate("2011-02-04T05:04:49.828Z"), "ticketNumber" : 6118, "jobs" : [ "Estudos de Gênero e Diversidade" ], "favFruits" : [ "Laranja", "Uva" ], "movies" : [ { "title" : "Interestelar (2014)", "rating" : 2.02 } ], "leao" : { "name" : "Lion", "age": 7} })
 WriteResult({ "nInserted" : 1 })
 > db.italians.find({"leao": {"$exists" : true}})
@@ -270,7 +270,7 @@ WriteResult({ "nRemoved" : 1 })
 15. Passou um ano. Atualize a idade de todos os italianos e dos bichanos em 1.
 
 
-``` shell
+```shell script
 > db.italians.update({}, { "$inc" : { "age": 1 }}, {multi: true})
 WriteResult({ "nMatched" : 28078, "nUpserted" : 0, "nModified" : 28078 })
 > db.italians.update({"cat" : {"$exists" : true}}, { "$inc" : { "cat.age": 1 }}, {multi: true})
@@ -282,7 +282,7 @@ WriteResult({ "nMatched" : 11329, "nUpserted" : 0, "nModified" : 11329 })
 
 16. O Corona Vírus chegou na Itália e misteriosamente atingiu pessoas somente com gatos e de 66 anos. Remova esses italianos.
 
-``` shell
+```shell script
 > db.italians.remove({ "$and" :[{"cat" : {"$exists" : true}}, { age :  66}]})
 WriteResult({ "nRemoved" : 195 })
 ```
@@ -291,7 +291,7 @@ WriteResult({ "nRemoved" : 195 })
 17. Utilizando o framework agregate, liste apenas as pessoas com nomes iguais a sua respectiva mãe e que tenha gato ou cachorro.
 
 
-``` shell
+```shell script
 
 > db.italians.aggregate(
 ... [ { $match : { "$or" :[{"cat" : {"$exists" : true}},{"cat" : {"$exists" : true}}]}},
@@ -326,7 +326,7 @@ Type "it" for more
 
 18. Utilizando aggregate framework, faça uma lista de nomes única de nomes. Faça isso usando apenas o primeiro nome
 
-``` shell
+```shell script
 > db.italians.aggregate( [ { $group : { _id : "$firstname" } } ] )
 { "_id" : "Pietro" }
 { "_id" : "Dario" }
@@ -355,7 +355,7 @@ Type "it" for more
 19. Agora faça a mesma lista do item acima, considerando nome completo.
 
 
-``` shell
+```shell script
 > db.italians.aggregate( [ { $group : { _id : {"firstName": "$firstname", "surname": "$surname" } }} ] )
 { "_id" : { "firstName" : "Andrea", "surname" : "Greco" } }
 { "_id" : { "firstName" : "Rosa", "surname" : "De Santis" } }
@@ -383,7 +383,7 @@ Type "it" for more
 
 20. Procure pessoas que gosta de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos.
 
-``` shell
+```shell script
 > db.italians.aggregate([ { $match :  { "$and" : [ 
 { "favFruits": {"$in" : ["Maça","Banana"]} },
 { "$or" : [{"dog" : { "$exists" : false}},{"cat" : { "$exists" : false}}]},
@@ -419,7 +419,7 @@ Importe o arquivo stocks.json do repositório Downloads NoSQL FURB. Esses dados
 são dados reais da bolsa americana de 2015. A importação do arquivo JSON é um
 pouco diferente da execução de um script:
 
-``` shell
+```shell script
 mongoimport --db stocks --collection stocks --file stocks.json
 ```
 
@@ -427,7 +427,7 @@ Analise um pouco a estrutura dos dados novamente e em seguida, responda as
 seguintes perguntas:
 1. Liste as ações com profit acima de 0.5 (limite a 10 o resultado)
 
-``` shell
+```shell script
 > db.stocks.find({"Profit Margin": {"$gte": 0.5}}).sort({"Profit Margin": 1}).limit(10)
 { "_id" : ObjectId("5285380bbb1177ca391c2cab"), "Ticker" : "SAR", "Profit Margin" : 0.5, "Institutional Ownership" : 0.522, "EPS growth past 5 years" : 0.21, "Total Debt/Equity" : 0.79, "Return on Assets" : 0.056, "Sector" : "Financial", "P/S" : 3.66, "Change from Open" : 0.0019, "Performance (YTD)" : 0.2, "Performance (Week)" : -0.042, "Insider Transactions" : 0.7326, "P/B" : 0.67, "EPS growth quarter over quarter" : -1.008, "Payout Ratio" : 1.923, "Performance (Quarter)" : 0.0076, "Forward P/E" : 7.75, "P/E" : 7.22, "200-Day Simple Moving Average" : 0.0337, "Shares Outstanding" : 4.73, "52-Week High" : -0.1233, "P/Cash" : 2.68, "Change" : 0.0025, "Analyst Recom" : 2, "Volatility (Week)" : 0.0449, "Country" : "USA", "Return on Equity" : 0.094, "50-Day Low" : 0.0283, "Price" : 16, "50-Day High" : -0.1233, "Return on Investment" : 0.041, "Shares Float" : 4.62, "Industry" : "Diversified Investments", "Beta" : 1.37, "Sales growth quarter over quarter" : 0.286, "Operating Margin" : 0.447, "EPS (ttm)" : 2.21, "Float Short" : 0.0008, "52-Week Low" : 0.2562, "Average True Range" : 0.53, "EPS growth next year" : 0.0842, "Sales growth past 5 years" : -0.045, "Company" : "Saratoga Investment Corp.", "Gap" : 0.0006, "Relative Volume" : 1.04, "Volatility (Month)" : 0.0259, "Market Cap" : 75.49, "Volume" : 11453, "Gross Margin" : 0.806, "Short Ratio" : 0.29, "Performance (Half Year)" : 0.0031, "Relative Strength Index (14)" : 41.2, "Insider Ownership" : 0.006, "20-Day Simple Moving Average" : -0.0362, "Performance (Month)" : -0.0545, "Institutional Transactions" : -0.0566, "Performance (Year)" : 0.1779, "LT Debt/Equity" : 0.79, "Average Volume" : 12.17, "EPS growth this year" : -0.083, "50-Day Simple Moving Average" : -0.0265 }
 { "_id" : ObjectId("52853801bb1177ca391c1af0"), "Ticker" : "BPO", "Profit Margin" : 0.503, "Institutional Ownership" : 0.958, "EPS growth past 5 years" : 0.354, "Total Debt/Equity" : 1.15, "Current Ratio" : 1, "Return on Assets" : 0.043, "Sector" : "Financial", "P/S" : 4.04, "Change from Open" : 0.001, "Performance (YTD)" : 0.1519, "Performance (Week)" : -0.0052, "Quick Ratio" : 1, "P/B" : 0.9, "EPS growth quarter over quarter" : -0.415, "Payout Ratio" : 0.235, "Performance (Quarter)" : 0.1825, "Forward P/E" : 18.74, "P/E" : 8.65, "200-Day Simple Moving Average" : 0.1124, "Shares Outstanding" : 505, "Earnings Date" : ISODate("2011-02-11T13:30:00Z"), "52-Week High" : -0.022, "P/Cash" : 22.13, "Change" : 0.0021, "Analyst Recom" : 3.1, "Volatility (Week)" : 0.0127, "Country" : "USA", "Return on Equity" : 0.115, "50-Day Low" : 0.1976, "Price" : 19.15, "50-Day High" : -0.022, "Return on Investment" : 0.015, "Shares Float" : 504.86, "Dividend Yield" : 0.0293, "EPS growth next 5 years" : 0.0735, "Industry" : "Property Management", "Beta" : 1.64, "Sales growth quarter over quarter" : 0.01, "Operating Margin" : 0.552, "EPS (ttm)" : 2.21, "PEG" : 1.18, "Float Short" : 0.0062, "52-Week Low" : 0.2728, "Average True Range" : 0.23, "EPS growth next year" : -0.105, "Sales growth past 5 years" : -0.043, "Company" : "Brookfield Properties Corporation", "Gap" : 0.001, "Relative Volume" : 0.17, "Volatility (Month)" : 0.0112, "Market Cap" : 9650.55, "Volume" : 249482, "Gross Margin" : 0.621, "Short Ratio" : 1.9, "Performance (Half Year)" : 0.0269, "Relative Strength Index (14)" : 62.08, "Insider Ownership" : 0.4972, "20-Day Simple Moving Average" : 0.012, "Performance (Month)" : 0.0154, "Institutional Transactions" : -0.004, "Performance (Year)" : 0.2482, "LT Debt/Equity" : 1.15, "Average Volume" : 1650.73, "EPS growth this year" : -0.212, "50-Day Simple Moving Average" : 0.0538 }
@@ -443,7 +443,7 @@ seguintes perguntas:
 
 2. Liste as ações com perdas (limite a 10 novamente)
 
-``` shell
+```shell script
 > db.stocks.find({"Change from Open": {"$lt": 0}}).sort({"Change from Open": 1}).limit(10)
 { "_id" : ObjectId("5285380dbb1177ca391c2fb4"), "Ticker" : "TTS", "Profit Margin" : -0.53, "Institutional Ownership" : 0.454, "EPS growth past 5 years" : 0, "Total Debt/Equity" : 1.06, "Current Ratio" : 2, "Return on Assets" : -0.578, "Sector" : "Services", "P/S" : 5.33, "Change from Open" : -0.3877, "Performance (YTD)" : 0.2608, "Performance (Week)" : -0.0846, "Quick Ratio" : 0.7, "Insider Transactions" : -0.7811, "P/B" : 15.05, "EPS growth quarter over quarter" : -0.788, "Performance (Quarter)" : -0.1913, "Forward P/E" : 34.9, "200-Day Simple Moving Average" : -0.475, "Shares Outstanding" : 51.56, "Earnings Date" : ISODate("2013-10-30T20:30:00Z"), "52-Week High" : -0.5806, "P/Cash" : 287.9, "Change" : -0.3897, "Analyst Recom" : 1.9, "Volatility (Week)" : 0.0516, "Country" : "USA", "Return on Equity" : -8.704, "50-Day Low" : -0.3307, "Price" : 12.95, "50-Day High" : -0.5719, "Return on Investment" : 1.217, "Shares Float" : 25.24, "EPS growth next 5 years" : 0.231, "Industry" : "Home Improvement Stores", "Sales growth quarter over quarter" : 0.255, "Operating Margin" : 0.173, "EPS (ttm)" : -2.58, "Float Short" : 0.0825, "52-Week Low" : -0.0189, "Average True Range" : 1.2, "EPS growth next year" : 0.385, "Company" : "Tile Shop Holdings, Inc.", "Gap" : -0.0033, "Relative Volume" : 40.37, "Volatility (Month)" : 0.0593, "Market Cap" : 1094.02, "Volume" : 17224344, "Gross Margin" : 0.715, "Short Ratio" : 4.42, "Performance (Half Year)" : -0.1867, "Relative Strength Index (14)" : 15.68, "Insider Ownership" : 0.025, "20-Day Simple Moving Average" : -0.4436, "Performance (Month)" : -0.2023, "Institutional Transactions" : 0.0084, "Performance (Year)" : 0.5707, "LT Debt/Equity" : 1, "Average Volume" : 471.43, "EPS growth this year" : -2.351, "50-Day Simple Moving Average" : -0.4958 }
 { "_id" : ObjectId("52853803bb1177ca391c1f9b"), "Ticker" : "EPZM", "Profit Margin" : -0.518, "Institutional Ownership" : 0.603, "EPS growth past 5 years" : 0, "Total Debt/Equity" : 0, "Current Ratio" : 4.7, "Return on Assets" : -0.212, "Sector" : "Healthcare", "P/S" : 21.92, "Change from Open" : -0.3853, "Performance (YTD)" : 0.3793, "Performance (Week)" : -0.0568, "Quick Ratio" : 4.7, "P/B" : 10.33, "EPS growth quarter over quarter" : -2.03, "Performance (Quarter)" : 0.0183, "200-Day Simple Moving Average" : -0.4096, "Shares Outstanding" : 28.41, "Earnings Date" : ISODate("2013-10-22T04:00:00Z"), "52-Week High" : -0.5704, "P/Cash" : 6.45, "Change" : -0.3806, "Analyst Recom" : 1.4, "Volatility (Week)" : 0.0771, "Country" : "USA", "Return on Equity" : -0.681, "50-Day Low" : -0.3242, "Price" : 19.64, "50-Day High" : -0.5402, "Return on Investment" : 0.016, "Shares Float" : 28.02, "Industry" : "Biotechnology", "Sales growth quarter over quarter" : -0.451, "Operating Margin" : -0.582, "EPS (ttm)" : -5.83, "Float Short" : 0.0434, "52-Week Low" : 0.0559, "Average True Range" : 2.22, "EPS growth next year" : 0.61, "Company" : "Epizyme, Inc.", "Gap" : 0.0076, "Relative Volume" : 31.04, "Volatility (Month)" : 0.0584, "Market Cap" : 900.75, "Volume" : 3752542, "Short Ratio" : 9.18, "Relative Strength Index (14)" : 18.87, "20-Day Simple Moving Average" : -0.4634, "Performance (Month)" : -0.0736, "Institutional Transactions" : 0.0102, "LT Debt/Equity" : 0, "Average Volume" : 132.52, "EPS growth this year" : 0.951, "50-Day Simple Moving Average" : -0.4574 }
@@ -459,7 +459,7 @@ seguintes perguntas:
 
 3. Liste as 10 ações mais rentáveis
 
-``` shell
+```shell script
 > db.stocks.find({"Performance (Year)" : {"$exists": true}}).sort({"Performance (Year)": -1}).limit(10)
 { "_id" : ObjectId("52853801bb1177ca391c187f"), "Ticker" : "AFFM", "Profit Margin" : -0.6574, "Institutional Ownership" : 0.7579, "EPS growth past 5 years" : -0.1334, "Return on Assets" : -0.2759, "Sector" : "Financial", "P/S" : 0.19, "Change from Open" : -0.0656, "Performance (YTD)" : 20.7857, "Performance (Week)" : -0.0469, "Insider Transactions" : 0.0156, "EPS growth quarter over quarter" : -1.9068, "Performance (Quarter)" : 1.1786, "200-Day Simple Moving Average" : 1.4685, "Shares Outstanding" : 15.41, "Earnings Date" : ISODate("2012-06-19T04:00:00Z"), "52-Week High" : -0.2083, "P/Cash" : 1.65, "Change" : -0.0656, "Volatility (Week)" : 0.0553, "Country" : "USA", "Return on Equity" : -15.1338, "50-Day Low" : 0.9521, "Price" : 2.85, "50-Day High" : -0.1739, "Shares Float" : 15.2, "EPS growth next 5 years" : 0.1, "Industry" : "Property & Casualty Insurance", "Beta" : 1.4, "Sales growth quarter over quarter" : -0.3021, "Operating Margin" : -0.6072, "EPS (ttm)" : -10.7, "Float Short" : 0.0002, "52-Week Low" : 27.5, "Average True Range" : 0.18, "Sales growth past 5 years" : -0.069, "Company" : "Affirmative Insurance Holdings Inc.", "Gap" : 0, "Relative Volume" : 2.61, "Volatility (Month)" : 0.0576, "Market Cap" : 47, "Volume" : 31375, "Short Ratio" : 0.21, "Performance (Half Year)" : 7.0263, "Relative Strength Index (14)" : 52.43, "Insider Ownership" : 0.0018, "20-Day Simple Moving Average" : 0.0455, "Performance (Month)" : 0.2348, "Institutional Transactions" : -0.0026, "Performance (Year)" : 20.7857, "Average Volume" : 13.2, "EPS growth this year" : -0.8472, "50-Day Simple Moving Average" : 0.1705 }
 { "_id" : ObjectId("52853802bb1177ca391c1d35"), "Ticker" : "CSIQ", "Profit Margin" : -0.186, "Institutional Ownership" : 0.301, "EPS growth past 5 years" : -0.2267, "Total Debt/Equity" : 3.85, "Current Ratio" : 1, "Return on Assets" : -0.103, "Sector" : "Technology", "P/S" : 1.11, "Change from Open" : -0.0281, "Performance (YTD)" : 8.4118, "Performance (Week)" : 0.173, "Quick Ratio" : 0.9, "P/B" : 5.06, "EPS growth quarter over quarter" : 0.508, "Performance (Quarter)" : 2.0075, "Forward P/E" : 14.75, "200-Day Simple Moving Average" : 1.8843, "Shares Outstanding" : 43.91, "Earnings Date" : ISODate("2013-11-13T13:30:00Z"), "52-Week High" : -0.0136, "P/Cash" : 9.94, "Change" : -0.0063, "Analyst Recom" : 2, "Volatility (Week)" : 0.0757, "Country" : "Canada", "Return on Equity" : -0.728, "50-Day Low" : 1.3731, "Price" : 31.8, "50-Day High" : -0.0136, "Return on Investment" : -0.1, "Shares Float" : 32.37, "EPS growth next 5 years" : 0.1, "Industry" : "Semiconductor - Specialized", "Beta" : 3.54, "Sales growth quarter over quarter" : 0.092, "Operating Margin" : -0.076, "EPS (ttm)" : -3.83, "Float Short" : 0.0697, "52-Week Low" : 15.3077, "Average True Range" : 2, "EPS growth next year" : 5.0278, "Sales growth past 5 years" : 0.337, "Company" : "Canadian Solar Inc.", "Gap" : 0.0225, "Relative Volume" : 1.86, "Volatility (Month)" : 0.0731, "Market Cap" : 1405.09, "Volume" : 6080909, "Gross Margin" : 0.076, "Short Ratio" : 0.63, "Performance (Half Year)" : 3.5198, "Relative Strength Index (14)" : 72.85, "Insider Ownership" : 0.3109, "20-Day Simple Moving Average" : 0.2391, "Performance (Month)" : 0.5392, "Institutional Transactions" : 0.1105, "Performance (Year)" : 11.3077, "LT Debt/Equity" : 0.92, "Average Volume" : 3588.24, "EPS growth this year" : -1.147, "50-Day Simple Moving Average" : 0.5744 }
@@ -476,34 +476,34 @@ seguintes perguntas:
 
 4. Qual foi o setor mais rentável?
 
-``` shell
+```shell script
 
 ```
 
 5. Ordene as ações pelo profit e usando um cursor, liste as ações.
 
-``` shell
+```shell script
 ```
 
 6. Renomeie o campo “Profit Margin” para apenas “profit”.
 
-``` shell
+```shell script
 ```
 
 7. Agora liste apenas a empresa e seu respectivo resultado
 
-``` shell
+```shell script
 ```
 
 8. Analise as ações. É uma bola de cristal na sua mão... Quais as três ações
 você investiria?
 
-``` shell
+```shell script
 ```
 
 9. Liste as ações agrupadas por setor
 
 
-``` shell
+```shell script
 ```
 

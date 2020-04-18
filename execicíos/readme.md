@@ -2,10 +2,13 @@
 
 
 ## Exercício final sobre Redis
- * redis
+ * [Redis](redis)
  
 ## Execício fina sobre MongoDB
- * momgoDB
+ * [MomgoDB](momgoDB)
  
 ## Execício fina sobre Neo4j
- * neo4j 
+ * [Neo4j](neo4j)  
+ 
+ ## Execício fina sobre HBase
+ * [HBase](hbase)  

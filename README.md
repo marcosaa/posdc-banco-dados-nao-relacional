@@ -6,6 +6,7 @@ Banco de dados não relacional
 Marcio Jasinski
 47 99653-4899
 
+
 ## Exercício
 
 ### REDIS
@@ -32,12 +33,10 @@ Cartela: 7 10 13 18 34 37 38 41 47 54 56 64 80 81 96
 Bolar sorteadas (69): 1 2 3 4 5 7 8 9 10 11 12 13 15 16 17 18 21 23 25 26 29 30 31 32 33 34 36 37 38 39 41 42 44 45 47 49 50 52 54 55 56 58 60 61 62 63 64 65 66 67 69 70 71 76 78 79 80 81 82 83 85 86 89 92 94 95 96 97 98 |
 
 
-
-
-
 ## material
-http://bit.ly/furb-nosql-202004
-
+* http://bit.ly/furb-nosql-202004
+* https://go.microsoft.com/fwlink/?linkid=2062135
+* https://www.dropbox.com/sh/45stbqgbj2nzuy5/AADmx9ytxMNIWk_9UwqyqlDHa?dl=0
 
 ## open source
 ## Teorema cap
@@ -329,9 +328,85 @@ Documento:
 	* perl para like
 	* evitar utilizar o where, mais lenta.
 	
-	
-	
+## Grafos
+	* http://www.inf.ufsc.br/grafos/definicoes/definicao.html
+	* Não tem schema
+		* pode misturar o que quiser
+	* vantagens	
+		* simplifica os relacionamentos
 
+### Neo4j
+	* Node - vertices
+	* relationshiphs (edges) - arestas
+	* Grafos sempre são rotulados- Label
+	* pode ter mais atrestas ligando a um vertices	
+		* pessoa, mora da cara e dona da casa
+	* arestas tem rotulos e valores
+		* cassado
+			* since: 2005-02-14
+	* node
+		* tem propriedades
+		* Person
+			* name: DAN
+			* born: 1975
+	* relacional
+		* row -> nodes
+		* join -> Relationships
+		* table -> labels
+		* columns -> properties
+	* Labels
+		* não precisam ter as mesmas propriedades
+	* Join
+		* são armazenados na disco
+	* Linha Pertence a uma tabela	
+		* node pode ter multiplos nodos
+	* relacional, monta o scheme depois usa. Neo, flexibiliza para evoluir
+	* relacional, abstrai o objeto/classe, Neo, modela a partir dos dados.
+	* ACID
+	* read_comited
+		* só le o que foi comitada
+	* cypher
+		* (vertice)
+		* -> arresta
+		* (A) - [:LIKES] -> (B), A deu LIKES em B
+		* () vertica anônimo
+		* (n) Vertice representando para n
+	* install docker
+		*  docker run -it --rm --publish=7474:7474 --publish=7687:7687-e NEO4J_dbms_connector_https_advertised__address="localhost:7473" -e NEO4J_dbms_connector_http_advertised__address="localhost:7474" -e NEO4J_dbms_connector_bolt_advertised__address="localhost:7687" --env=NEO4J_AUTH=none neo4j
+	
+## Colunas
+
+### HBase
+	* Bigtable depois for renomeado para HBase
+	* hadoop - processamento distribuído.
+	* capacidade de banco,
+	* concorrente do casandra.
+	* baixa latência
+	* Hive, drill e phoenix
+	* Não tem muita consistência
+	* Não da para criar novas familias de colunas
+	* row key - 039.786.879-09
+		* person-data
+			* name
+				* rafael v1
+			*andress
+				* Xaxim - v1
+				* Faxinal - v2
+				* Xanxerê - v3
+				* Blumenau - v4
+		* professional-data
+			* job
+				* programador v1
+				* projetista v2
+				* Arquiteto v3
+			*salary
+				* 7500 v1
+	* não pode perder a chave
+	* não é tipadoe nem tamanho
+	* Não pode mexer na familia de colunas
+	* disable -> altera -> enable
+	* não pode renomear colunas
+	
 	
 	
  

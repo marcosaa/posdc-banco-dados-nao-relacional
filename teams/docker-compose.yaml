@@ -1,0 +1,12 @@
+---
+version: "3.5"
+
+services:
+  redis-server:
+    image: "redis:latest"
+
+  redis-cli:
+    image: "redis:latest"
+    links:
+    - redis-server
+    command: redis-cli -h redis-server

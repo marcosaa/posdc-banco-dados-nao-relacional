@@ -426,91 +426,181 @@
     ```
 10. View the current schema of the graph.
     ``` shell
+    call db.schema.visualization()
     ```
 11. Add properties to a movie.
     ``` shell
+    MATCH (m:Movie)
+    WHERE m.title = 'Forrest Gump'
+    SET m:OlderMovie,
+        m.released = 1994,
+        m.tagline = "Life is like a box of chocolates...you never know what you're gonna get.",
+        m.lengthInMinutes = 142
     ```
 12. Retrieve an OlderMovie node to confirm the label and properties.
     ``` shell
+    MATCH (m:OlderMovie)
+    WHERE m.title = 'Forrest Gump'
+    RETURN m
     ```
 13. Add properties to the person, Robin Wright.
     ``` shell
+    MATCH (p:Person)
+    WHERE p.name = 'Robin Wright'
+    SET p.born = 1966, p.birthPlace = 'Dallas'
     ```
 14. Retrieve an updated Person node.
     ``` shell
+    MATCH (p:Person)
+    WHERE p.name = 'Robin Wright'
+    RETURN p
     ```
 15. Remove a property from a Movie node.
     ``` shell
+    MATCH (m:Movie)
+    WHERE m.title = 'Forrest Gump'
+    set m.lengthInMinutes= null
     ```
 16. Retrieve the node to confirm that the property has been removed.
     ``` shell
+    MATCH (m:Movie)
+    WHERE m.title = 'Forrest Gump'
+    RETURN m
     ```
 17. Remove a property from a Person node.
     ``` shell
+    MATCH (p:Person)
+    WHERE p.name = 'Robin Wright'
+    REMOVE p.birthPlace
     ```
 18. Retrieve the node to confirm that the property has been removed.
     ``` shell
+    MATCH (p:Person)
+    WHERE p.name = 'Robin Wright'
+    RETURN p
     ```
     
 ## Exercício 9 – Creating relationships
 
 1. Create ACTED_IN relationships.
     ``` shell
+   MATCH (m:Movie)
+   WHERE m.title = 'Forrest Gump'
+   MATCH (p:Person)
+   WHERE p.name = 'Tom Hanks' OR p.name = 'Robin Wright' OR p.name = 'Gary Sinise'
+   CREATE (p)-[:ACTED_IN]->(m)
     ```
+   
 2. Create DIRECTED relationships.
     ``` shell
+   MATCH (m:Movie)
+   WHERE m.title = 'Forrest Gump'
+   MATCH (p:Person)
+   WHERE p.name = 'Robert Zemeckis'
+   CREATE (p)-[:DIRECTED]->(m)
     ```
 3. Create a HELPED relationship.
     ``` shell
+   MATCH (pth:Person)
+   WHERE pth.name = 'Tom Hanks'
+   MATCH (pgs:Person)
+   WHERE pgs.name = 'Gary Sinise'
+   CREATE (pth)-[:HELPED ]->(pgs)
     ```
 4. Query nodes and new relationships.
     ``` shell
+   MATCH (p:Person)-[rel]-(m:Movie)
+   WHERE m.title = 'Forrest Gump'
+   RETURN p, rel, m
     ```
 5. Add properties to relationships.
     ``` shell
+   MATCH (p:Person)-[rel:ACTED_IN]->(m:Movie)
+   WHERE m.title = 'Forrest Gump'
+   SET rel.roles =
+   CASE p.name
+     WHEN 'Tom Hanks' THEN ['Forrest Gump']
+     WHEN 'Robin Wright' THEN ['Jenny Curran']
+     WHEN 'Gary Sinise' THEN ['Lieutenant Dan Taylor']
+   END
     ```
 6. Add a property to the HELPED relationship.
     ``` shell
+   MATCH (p1:Person)-[rel:HELPED]->(p2:Person)
+   WHERE p1.name = 'Tom Hanks' AND p2.name = 'Gary Sinise'
+   SET rel.research = 'war history'
     ```
 7. View the current list of property keys in the graph.
     ``` shell
+    call db.propertyKeys
     ```
 8. View the current schema of the graph.
     ``` shell
+   call db.schema.visualization()
     ```
 9. Retrieve the names and roles for actors.
     ``` shell
+   MATCH (p:Person)-[rel:ACTED_IN]->(m:Movie)
+   WHERE m.title = 'Forrest Gump'
+   RETURN p.name, rel.roles
     ```
 10. Retrieve information about any specific relationships.
     ``` shell
+    MATCH (p1:Person)-[rel:HELPED]-(p2:Person)
+    RETURN p1.name, rel, p2.name
     ```
 11. Modify a property of a relationship.
     ``` shell
+    MATCH (p:Person)-[rel:ACTED_IN]->(m:Movie)
+    WHERE m.title = 'Forrest Gump' AND p.name = 'Gary Sinise'
+    SET rel.roles =['Lt. Dan Taylor']
     ```
 12. Remove a property from a relationship.
     ``` shell
+    MATCH (p1:Person)-[rel:HELPED]->(p2:Person)
+    WHERE p1.name = 'Tom Hanks' AND p2.name = 'Gary Sinise'
+    REMOVE rel.research
     ```
 13. Confirm that your modifications were made to the graph.
     ``` shell
+    MATCH (p:Person)-[rel:ACTED_IN]->(m:Movie)
+    WHERE m.title = 'Forrest Gump'
+    return p, rel, m
     ```
 
 ## Exercício 10 – Deleting nodes and relationships
 
 1. Delete a relationship.
     ``` shell
+   MATCH (:Person)-[rel:HELPED]-(:Person)
+   DELETE rel
     ```
 2. Confirm that the relationship has been deleted.
     ``` shell
+   MATCH (:Person)-[rel:HELPED]-(:Person)
+   RETURN rel
     ```
 3. Retrieve a movie and all of its relationships.
     ``` shell
+   MATCH (p:Person)-[rel]-(m:Movie)
+   WHERE m.title = 'Forrest Gump'
+   RETURN p, rel, m
     ```
 4. Try deleting a node without detaching its relationships.
     ``` shell
+   MATCH (m:Movie)
+   WHERE m.title = 'Forrest Gump'
+   DELETE m
     ```
 5. Delete a Movie node, along with its relationships.
     ``` shell
+   MATCH (m:Movie)
+   WHERE m.title = 'Forrest Gump'
+   DETACH DELETE m
     ```
 6. Confirm that the Movie node has been deleted.
     ``` shell
+   MATCH (p:Person)-[rel]-(m:Movie)
+   WHERE m.title = 'Forrest Gump'
+   RETURN p, rel, m
     ```

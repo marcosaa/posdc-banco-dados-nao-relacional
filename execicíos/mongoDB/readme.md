@@ -477,33 +477,74 @@ seguintes perguntas:
 4. Qual foi o setor mais rentável?
 
 ```shell script
-
+	db.stocks.aggregate(
+		[ 
+			{
+				$group:
+				{
+					_id: { sector: "$Sector" },
+					totalAmount: { $sum: "$Profit Margin" }
+				}
+			},
+			{
+				$sort:{ totalAmount:-1 }
+			},
+			{
+				$limit: 1
+			}
+		]
+	)
 ```
 
 5. Ordene as ações pelo profit e usando um cursor, liste as ações.
 
 ```shell script
+	var cursor = db.stocks.find({}).sort({'Profit Margin':-1});
+	while (cursor.hasNext()) {
+	   var atual = cursor.next();
+	   printjson(atual);
+	}
 ```
 
 6. Renomeie o campo “Profit Margin” para apenas “profit”.
 
 ```shell script
+	db.stocks.updateMany({}, {$rename:{"Profit Margin": "profit"}})
 ```
 
 7. Agora liste apenas a empresa e seu respectivo resultado
 
 ```shell script
+	db.stocks.find({},{'Company':1,'profit':1})
 ```
 
 8. Analise as ações. É uma bola de cristal na sua mão... Quais as três ações
 você investiria?
 
 ```shell script
+	db.stocks.find({}).sort({'20-Day Simple Moving Average':-1}).limit(3)
 ```
 
 9. Liste as ações agrupadas por setor
 
 
 ```shell script
+db.stocks.aggregate([
+   {$group : {_id : "$Sector"}}
+])
 ```
 
+
+### Exercício 3 – Fraude na Enron!
+
+
+1. Liste as pessoas que enviaram e-mails (de forma distinta, ou seja, sem repetir). Quantas pessoas são?
+```shell script
+	db.enron.distinct("sender")
+```
+
+
+2. Contabilize quantos e-mails tem a palavra “fraud”
+```shell script
+	db.enron.find({text: {$regex: /fraud/i}}).count()
+```

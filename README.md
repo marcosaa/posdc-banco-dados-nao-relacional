@@ -1,16 +1,17 @@
 # posdc-banco-dados-nao-relacional
 Rascunho de Banco de dados não relacional
+* feito on-line durante a aula, pode erros e assuntos aleatórios.
+* Ignore os erros, anotação para uso pessoal.
 
 ## data
 
 * 04/04/2020
 * Marcio Jasinski
-* 47 99653-4899
 
 
 ## Exercício
 
-Ver pasta [Execicíos](execicíos)
+Ver pasta [exercícios](exercícios)
 
 ## Material
 * http://bit.ly/furb-nosql-202004
@@ -21,48 +22,48 @@ Ver pasta [Execicíos](execicíos)
 ## Teorema cap
 ## NoSQL
 
-### caracteristica
+### característica
 
 - escala
  * Geral
 	- Data center diferentes, Brasil, EUA e Alemanha.
  * Relacional:
 	- escala a máquina.
-	- transação, deve se comunicar entre todos os servidores, a latencia impacta na performance. 
+	- transação, deve se comunicar entre todos os servidores, a latência impacta na performance. 
 	- Tempo de resposta.
-	- Custo de licenciamente, muito alto, porque precisa uma licensa para cada servidores.
+	- Custo de licenciamento, muito alto, porque precisa uma licença para cada servidores.
 	- Quantidade de nós distribuídas.
  * Não relacional:
 	- deve ser escalado horizontalmente.
 	- considera que pode acontecer erro em nós, imaginando vários datacentes, sempre algum vai falhar.
 	- Quando um nos, falhar, descarta e carrega um novo, nós
 	- Nem tudo precisa de transação, imagina conversar com todos os nós, para locar.
-	- Sem custo de licensa, 
+	- Sem custo de licença, 
 	
 - distribuição de dados (particionamento)
  * Sharding
   
 - Consistência - ACID
  * Atomicity, ou tudo ou nada
- * Consistency, consitencia dos dados 
+ * Consistency, consistência dos dados 
  * Isolation, isolado outra transação não pode atrapalhar
  * Durability, uma vez feito em disco não volta
  
   - problemas
 	* nem tudo precisa ser ACID; 
 	* Atender volume e velocidade;
-	* alternativa SAGA, não apaga a situação, defaz, exemplo banco adicina, valor, negativa valor;
+	* alternativa SAGA, não apaga a situação, defaz, exemplo banco adiciona, valor, negativa valor;
 
 - Base
 	* 
 
 - Schemaless
- * Menor foco na estrutura dos dados;
- * relaciona, tudo começa pela strutura dos dados.
- * diferentes schemas na mesma strutura.
+ * Menor foco na eestrutura dos dados;
+ * relaciona, tudo começa pela estrutura dos dados.
+ * diferentes schemas na mesma estrutura.
  * alterar schema é normal
  * Schema on write vs Schema on read
-	- relacional, on write, se não tiver a estrutura não grava
+	- relacional, on write, se não tiver a eestrutura não grava
 	- não relacional, você informa o que quer ler, por não ter uma lista de filhos.
 
 - diferentes forma de acesso
@@ -73,26 +74,26 @@ Ver pasta [Execicíos](execicíos)
  
 - Teorema de cap
  * Quanto preparado a falhar o sistema esta?
- * Não ter 3 ao mesmo tempo, consitência, disponibilidade e tolerância a falha, ao mesmo tempo.
- * algoritmo de corum, consetimento.
+ * Não ter 3 ao mesmo tempo, consistência, disponibilidade e tolerância a falha, ao mesmo tempo.
+ * algoritmo de corum, consentimento.
  * consistência
 	* W 5, 5 nós precisa confirmar para confirmar a escrita, depois replica para todos
 	* R 3, 3 nos tem que confirmar a informação para depois retornar. Se um falhar, passa para outro.
- * disponiblidade
-	* sempre retornar um informação, 
- * tolerancia a particionamento
+ * disponibilidade
+	* sempre retornar uma informação, 
+ * tolerância a particionamento
 	* Não vai falhar se um nó cair,
 	* vai se recuperar a trabalhar para retornar.
 
- * P -> C, a aplicação aguarda restabecer o banco
+ * P -> C, a aplicação aguarda reestabelecer o banco
  * p -> A, 
  
 - Chave valor
  * simples
  * alta performance
  * conceito de Mapeamento Hash Distribuído.
- * valor não é indexavél, somente a chave, todo o dado é via chave
- - Caracteristicas
+ * valor não é indexável, somente a chave, todo o dado é via chave
+ - características
 	* escalabilidade
 	* produtividade
 	* performance, opera em memória
@@ -111,13 +112,13 @@ Ver pasta [Execicíos](execicíos)
 	
 - Banco de dados por documento
  * documento, no centro
- * cada documento é um linha, com todos os join possíveis.
+ * cada documento é uma linha, com todos os join possíveis.
  * cada documento é associado a 
  * dbrefm evutar utiliza
  * indexar, keys, values
- * caracteristicas
+ * características
 	* escalabilidade( master write)
-	* alta produtivdade
+	* alta produtividade
 	* performance
 	* baixa complexibilidade
  * indicados
@@ -142,8 +143,8 @@ Documento:
 - Banco de grafos
  * neo for j
  * conceito de grafos
- * modelo proximo a redes social.
- * caracteristica
+ * modelo próximo a redes social.
+ * característica
 	- neo4j, escala utilizando sharding.
 	- ACID-compliant
 	- alta disponibilidade, sem dificultado na replica
@@ -152,17 +153,17 @@ Documento:
 	- uso: modelagem de ambiente de redes
 	- usu: custo de chamar a um servidor
 	- usu: jogos, busca 
- * não recomemdado
+ * não recomendado
 	- se for difícil de modelar em grafos
 	- solução clássicas em relacional
 	- relatórios em geral
 
-- Familia de colunas
+- família de colunas
  * cassandra
  * parecido com relacional
- * Flexivel no strutura de colunas
+ * Flexível no estrutura de colunas
  * problemas do google e facebook, muito informações e distruído.
-	- todo mundo que deu like em um noticia.
+	- todo mundo que deu like em um notícia.
 	- contabilizar, likes, idade...
  * foco em DISTRIBUÍDOS	
 	* particionar processo para cada um pegar sou pedaço
@@ -170,7 +171,7 @@ Documento:
 	- muitos nulls
  * vantagens
 	* apenas valores que são necessárias
- * caracteristicas
+ * características
 	* altas escalabilidade alto volume
 	* mais simples que conhece o relacional
 	* não indicado para prototipagem
@@ -183,7 +184,7 @@ Documento:
  
 - outros
  - Livros contábeis (QLDB)
-	* operações funcionassem com estorico
+	* operações funcionassem com histórico
  - Blockchain( hyperledger, ethereum)
 	* dados só podem ser adicionados
  - Séries temporáis
@@ -193,7 +194,7 @@ Documento:
  - Files system(HDfs)
  
 * persistência poliglota
- - banco espeficio para cada problema.
+ - banco específico para cada problema.
 
 
 ## Key value
@@ -219,7 +220,7 @@ Documento:
 			- não existe nil
 		- del key...
 		- incr key
-			- incrementa de forma atomica.
+			- incrementa de forma atômica.
 			- erro se não for um número
 			- exemplo: limite de chamadas por tempo, 10 chamada por segundo
 		- incrby key 10
@@ -236,9 +237,9 @@ Documento:
 
 ### MONGODB
 	* orientado a documento.
-	* relaciomento exitem, não utilizar
+	* relacionamento existem, não utilizar
 	* dados AGREGADOS
-	* ausencia de schema
+	* ausência de schema
 	* simples remover e adicionar campo
 	* validação fica para aplicação
 	* escala horizontalmente
@@ -247,7 +248,7 @@ Documento:
 	* positivo
 		* escala
 	* negativo
-		* geranciar os nós
+		* gerenciar os nós
 	
 	* perde
 		* join
@@ -259,10 +260,10 @@ Documento:
 		* atributo com nome errado, é mais lento, porque ele procura o dado em cada registro.
 	* Documento é sempre um JSON
 	* chave é sempre string, . e $ não deve ser utilizado
-	* armazendo é bson
+	* armazenado é bson
 	* case sensitive
 	* não pode duplicar chaves, no mesmo json
-	* chaves e valor, são ordenandos
+	* chaves e valor, são ordenados
 	* coleções, são as tabelas
 		* cada documento pode ter objetos diferentes
 	* porque separar em coleções
@@ -270,7 +271,7 @@ Documento:
 			* mais organizados
 		* Se não tiver em uma validação de leitura tem que saber qual o tipo de registro
 		* performance, mais interessante agrupar os dados próximos, mais rápido de consultar
-		* muitos documentos e campos, muito indices e buscar, dificulta performance e 
+		* muitos documentos e campos, muito índices e buscar, dificulta performance e 
 	* coleção	
 		* nomes,
 		*proibidos
@@ -292,7 +293,7 @@ Documento:
 		ISODate("")
 	* mongorx.js
 		* dentro do home, 
-		* script de inicialição
+		* script de inicialização
 	* operações atomicos
 		*$unset
 		* $set
@@ -313,12 +314,12 @@ Documento:
 		* simplifica os relacionamentos
 
 ### Neo4j
-	* Node - vertices
+	* Node - vértices
 	* relationshiphs (edges) - arestas
 	* Grafos sempre são rotulados- Label
-	* pode ter mais atrestas ligando a um vertices	
+	* pode ter mais arestas ligando a um vértices	
 		* pessoa, mora da cara e dona da casa
-	* arestas tem rotulos e valores
+	* arestas tem rótulos e valores
 		* cassado
 			* since: 2005-02-14
 	* node
@@ -336,17 +337,17 @@ Documento:
 	* Join
 		* são armazenados na disco
 	* Linha Pertence a uma tabela	
-		* node pode ter multiplos nodos
+		* node pode ter múltiplos nodos
 	* relacional, monta o scheme depois usa. Neo, flexibiliza para evoluir
 	* relacional, abstrai o objeto/classe, Neo, modela a partir dos dados.
 	* ACID
 	* read_comited
-		* só le o que foi comitada
+		* só lê o que foi comitada
 	* cypher
 		* (vertice)
 		* -> arresta
 		* (A) - [:LIKES] -> (B), A deu LIKES em B
-		* () vertica anônimo
+		* () vértice anônimo
 		* (n) Vertice representando para n
 	* install docker
 		*  docker run -it --rm --publish=7474:7474 --publish=7687:7687-e NEO4J_dbms_connector_https_advertised__address="localhost:7473" -e NEO4J_dbms_connector_http_advertised__address="localhost:7474" -e NEO4J_dbms_connector_bolt_advertised__address="localhost:7687" --env=NEO4J_AUTH=none neo4j
@@ -361,7 +362,7 @@ Documento:
 	* baixa latência
 	* Hive, drill e phoenix
 	* Não tem muita consistência
-	* Não da para criar novas familias de colunas
+	* Não da para criar novas famílias de colunas
 	* row key - 039.786.879-09
 		* person-data
 			* name
@@ -379,8 +380,8 @@ Documento:
 			*salary
 				* 7500 v1
 	* não pode perder a chave
-	* não é tipadoe nem tamanho
-	* Não pode mexer na familia de colunas
+	* não é tipado e nem tamanho
+	* Não pode mexer na família de colunas
 	* disable -> altera -> enable
 	* não pode renomear colunas
 	
